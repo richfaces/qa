@@ -22,12 +22,16 @@
 package org.richfaces.tests.metamer.bean.rich;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 import org.richfaces.component.UIDataScroller;
 import org.richfaces.tests.metamer.Attributes;
@@ -49,6 +53,8 @@ public class RichDataScrollerBean implements Serializable {
     private Attributes attributes;
     private Attributes tableAttributes;
     private boolean state = true;
+    @ManagedProperty(value = "#{model.capitals.size()}")
+    private int size;
 
     private Map<String, String> facets;
 
@@ -129,5 +135,26 @@ public class RichDataScrollerBean implements Serializable {
 
     public Map<String, String> getFacets() {
         return facets;
+    }
+
+    public List<SelectItem> getPagesToScroll() {
+        List<SelectItem> list = new ArrayList<SelectItem>();
+        int rows = Integer.parseInt(getTableAttributes().get("rows").getValue().toString());
+        int page = Integer.parseInt(getAttributes().get("page").getValue().toString());
+        for (int i = 1; i <= Math.ceil(size / rows); i++) {
+            if (Math.abs(i - page) < 5) {
+                SelectItem item = new SelectItem(i);
+                list.add(item);
+            }
+        }
+        return list;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }
