@@ -99,6 +99,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <f:facet name="next_disabled">#{richDataScrollerBean.facets['next_disabled']}</f:facet>
             <f:facet name="fastForward_disabled">#{richDataScrollerBean.facets['fastForward_disabled']}</f:facet>
             <f:facet name="last_disabled">#{richDataScrollerBean.facets['last_disabled']}</f:facet>
+            <f:facet name="pages">
+                <h:panelGroup>
+                    <h:outputText value="Page "/>
+                    <h:selectOneMenu value="#{richDataScrollerBean.attributes['page'].value}"
+                                     onchange="RichFaces.component('beforeForm:scroller1').switchToPage(this.value)">
+                        <f:selectItems value="#{richDataScrollerBean.pagesToScroll}" />
+                    </h:selectOneMenu>
+                    <h:outputText value=" of #{pages}" />
+                </h:panelGroup>
+            </f:facet>
         </r:dataScroller>
     </ui:define>
 
