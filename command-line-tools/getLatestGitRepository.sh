@@ -2,7 +2,7 @@
 # use sh getLatestGitRepository.sh ; to download repository from latest snapshots
 # use sh getLatestGitRepository.sh githubBranch; to download repository from latest snapshots and to switch to a specific branch/tag
 
-while getopts ":s:r:w" opt; do
+while getopts ":s" opt; do
     case $opt in
         s)
             URL_SNAPSHOTS="$OPTARG"
